@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Posts</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>New Posts</h1>
+    <div class="posts-container">
+        <ul>
+            <% posts.forEach(post => { %>
+                <li>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="avatar"><%= post.username[0].toUpperCase() %></div>
+                        <strong><%= post.username %></strong>
+                    </div>
+                    <div class="post-meta">
+                        Posted on <%= post.createdAt %>
+                    </div>
+                    <p><%= post.content %></p>
+                    <div class="button-group">
+                        <a href="/posts/<%= post.id %>" class="btn btn-detail">See in detail</a>
+                        <a href="/posts/<%= post.id %>/edit" class="btn btn-update">Update</a>
+                        <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" class="delete-form">
+                            <button type="submit" class="btn btn-delete">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+    <div class="create-new">
+        <a href="/posts/new" class="btn btn-create">Create New Post</a>
+    </div>
+</body>
+</html>
