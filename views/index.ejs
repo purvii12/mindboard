@@ -11,23 +11,27 @@
     <div class="posts-container">
         <ul>
             <% posts.forEach(post => { %>
-                <li>
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <div class="avatar"><%= post.username[0].toUpperCase() %></div>
-                        <strong><%= post.username %></strong>
-                    </div>
-                    <div class="post-meta">
-                        Posted on <%= post.createdAt %>
-                    </div>
-                    <p><%= post.content %></p>
-                    <div class="button-group">
-                        <a href="/posts/<%= post.id %>" class="btn btn-detail">See in detail</a>
-                        <a href="/posts/<%= post.id %>/edit" class="btn btn-update">Update</a>
-                        <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" class="delete-form">
-                            <button type="submit" class="btn btn-delete">Delete</button>
-                        </form>
-                    </div>
-                </li>
+                <% if (post && post.username) { %>
+                    <li>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div class="avatar">
+                                <%= post.username[0] ? post.username[0].toUpperCase() : "U" %>
+                            </div>
+                            <strong><%= post.username %></strong>
+                        </div>
+                        <div class="post-meta">
+                            Posted on <%= post.createdAt ? post.createdAt : "Unknown date" %>
+                        </div>
+                        <p><%= post.content %></p>
+                        <div class="button-group">
+                            <a href="/posts/<%= post.id %>" class="btn btn-detail">See in detail</a>
+                            <a href="/posts/<%= post.id %>/edit" class="btn btn-update">Update</a>
+                            <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" class="delete-form">
+                                <button type="submit" class="btn btn-delete">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                <% } %>
             <% }) %>
         </ul>
     </div>
